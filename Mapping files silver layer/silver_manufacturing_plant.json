@@ -1,0 +1,32 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_plant_master",
+  "target_table": "auto_db.jkauto_silver.silver_manufacturing_plant",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "scd2",
+  "merge_keys": [
+    "plant_id"
+  ],
+  "identity_columns": [
+    "plant_ek"
+  ],
+  "column_mapping": {
+    "plant_id":"plant_id",
+	  "plant_name":"plant_name",
+	  "country":"plant_country",
+	  "city":"plant_city",
+	  "capacity_units":"cast(capacity_units as int)",
+	  "capacity_per_day":"cast(cast(capacity_units as int)/365 as int)",
+  	"plant_type":"plant_type",
+	  "operational_status":"operational_status",
+	  "timezone":"CASE WHEN plant_country = 'India' THEN 'Asia/Kolkata' WHEN plant_country = 'USA' THEN 'America/New_York' WHEN plant_country = 'Germany' THEN 'Europe/Berlin' ELSE 'UTC' END",
+	  "effective_from":"cast(created_date as date)",
+	  "effective_to":"cast(CASE WHEN operational_status ='INACTIVE' then current_timestamp() else null end as date)"
+  }
+}
+
+
+
+
+

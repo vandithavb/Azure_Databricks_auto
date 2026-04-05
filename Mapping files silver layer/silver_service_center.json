@@ -1,0 +1,27 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_service_logs",
+  "target_table": "auto_db.jkauto_silver.silver_service_center",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "overwrite",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "service_center_ek"
+  ],
+  "dropDuplicates":"true",
+  "column_mapping": {
+	
+	"service_center_id":"service_center_id",
+	"center_name":"center_name",
+	"country":"country",
+	"city":"city",
+	"operational_status":"status",
+	"service_capability":"case when authorization_flag ='Y' then 'FULL_SERVICE' else 'BASIC_SERVICE' end",
+	"capacity_per_day" :"case when city in ('Berlin','Munich','New York') then 60 else 30 end",
+	"supported_vehicle_types":"'ICE,EV,HYBRID'",
+	"is_authorized":" case when authorization_flag ='Y' then true else false end"
+  }
+}

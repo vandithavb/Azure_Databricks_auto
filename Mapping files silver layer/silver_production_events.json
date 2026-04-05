@@ -1,0 +1,31 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_production_events",
+  "target_table": "auto_db.jkauto_silver.silver_vehicle_production",
+
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column":"",
+  "load_type": "append",
+
+  "merge_keys": ["event_id"],
+  "identity_columns": ["vehicle_production_ek"],
+
+  "column_mapping": {
+		"production_id":"event_id",
+		"vin":"vin",
+		"plant_id":"plant_id",
+		"production_date":"cast(event_date as date)",
+		"production_stage":"event_type",
+		"production_status":"production_status",
+		"production_time_minutes":"cast(TIMESTAMPDIFF(MINUTE, event_timestamp, event_completiontime) as int)",
+		"defect_flag":"defect_code",
+		"scrap_flag":"scrap_flag"
+   
+	}
+}
+
+
+
+
+
+

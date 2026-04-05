@@ -1,0 +1,32 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_dealer_sales",
+  "target_table": "auto_db.jkauto_silver.silver_vehicle_sales",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "overwrite",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "vehicle_sales_ek"
+  ],
+  "column_mapping": {
+		"sales_id":"sales_id",
+	  "vin":"vin",
+		"dealer_id":"dealer_id",
+		"customer_id":"customer_id",
+		"sale_date":"sale_date",
+		"currency_code":"currency_code",
+		"sales_status":"sales_status",
+		"discount_amount":"CAST(discount_amount AS FLOAT)",
+		"tax_amount":"CAST(tax_amount AS FLOAT)",
+		"gross_sales_amount":"CAST(sale_price - discount_amount AS FLOAT)",
+		"net_sales_amount":"CAST((sale_price - discount_amount)-tax_amount AS FLOAT)"
+  }
+}
+
+
+
+
+

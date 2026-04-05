@@ -1,0 +1,25 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_dealer_master",
+  "target_table": "auto_db.jkauto_silver.silver_dealer",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "scd2",
+  "merge_keys": [
+    "dealer_id"
+  ],
+  "identity_columns": [
+    "dealer_ek"
+  ],
+  "column_mapping": {
+    "dealer_id":"dealer_id",
+	"dealer_name":"dealer_name",
+	"dealer_country":"dealer_country",
+	"dealer_state":"dealer_state",
+	"dealer_city":"dealer_city",
+	"dealer_type":"dealer_type",
+	"operational_status":"dealer_status",
+	"contract_start_date":"cast(contract_start_date as date)",
+	"contract_end_date":"cast(contract_end_date as date)"
+  }
+}

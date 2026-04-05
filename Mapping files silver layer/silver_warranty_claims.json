@@ -1,0 +1,34 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_warranty_claims",
+  "target_table": "auto_db.jkauto_silver.silver_warranty_claims",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "append",
+  "merge_keys": [
+    "claim_id"
+  ],
+  "identity_columns": [
+    "warranty_claims_ek"
+  ],
+  "column_mapping": {
+    "claim_id":"claim_id",
+	"vin":"vin",
+	"claim_date":"cast(claim_date as date)",
+	"claim_amount":"cast(claim_amount as int)",
+	"claim_status":"approval_status",
+	"failure_type":"claim_type",
+	"resolution_days": "DATEDIFF(CAST(resolution_date AS DATE), CAST(claim_date AS DATE))"
+  }
+}
+
+
+
+
+
+
+
+
+
+
+

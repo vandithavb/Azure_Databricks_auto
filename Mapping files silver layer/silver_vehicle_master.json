@@ -1,0 +1,31 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_production_events",
+  "target_table": "auto_db.jkauto_silver.silver_vehicle_master",
+
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column":"",
+  "load_type": "scd1",
+
+  "merge_keys": ["vin"],
+  "identity_columns": ["vehicle_ek"],
+
+  "column_mapping": {
+    "vin":"vin",
+	"model_code":"model",
+	"variant":"variant",
+	"body_type":"body_type",
+	"engine_type":"engine",
+	"fuel_type":"fuel_type",
+	"transmission_type":"transmission_type",
+	"vehicle_segment":"vehicle_segment",
+	"manufacture_date":"CAST(event_date as date)",
+	"model_year":"year(event_completiontime)",
+	"plant_id":"plant_id",
+	"emission_norm":"engine"
+	}
+}
+
+
+
+

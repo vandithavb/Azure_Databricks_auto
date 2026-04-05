@@ -1,0 +1,22 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_country_city_mapping",
+  "target_table": "auto_db.jkauto_silver.silver_geography",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "overwrite",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "geography_ek"
+  ],
+  "column_mapping": {
+    "country":"country" ,
+	"state":"state" ,
+	"city":"state" ,
+	"region":"state" ,
+	"continent":"state" ,
+	"timezone":"state"
+  }
+}

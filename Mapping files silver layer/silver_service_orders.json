@@ -1,0 +1,30 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_service_logs",
+  "target_table": "auto_db.jkauto_silver.silver_service_orders",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "Append",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "service_order_ek"
+  ],
+  "column_mapping": {
+	  
+    "service_order_id":"service_order_id",
+	   "vin":"vin",
+	   "service_center_id":"service_center_id",
+	   "service_date":"CAST(FROM_UNIXTIME(service_date / 1000) AS DATE)",
+	   "service_type":"service_type",
+	   "labor_hours":"labor_hours",
+	   "service_cost":"CAST(service_cost as double)",
+	   "country":"country",
+	   "warranty_flag":"warranty_flag"
+
+
+  }
+}
+
+

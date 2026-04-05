@@ -1,0 +1,26 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_supplier_parts",
+  "target_table": "auto_db.jkauto_silver.silver_supplier_parts",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "scd1",
+  "merge_keys": [
+    "part_number","supplier_id"
+  ],
+  "identity_columns": [
+    "supplier_parts_ek"
+  ],
+  "column_mapping": {
+    "part_number":"part_number",
+	"part_name":"part_name",
+	"part_category":"part_category",
+	"unit_of_measure":"unit_of_measure",
+	"standard_cost":"CAST(part_cost as float)",
+	"supplier_id":"supplier_id",
+	"part_criticality":"criticality_flag",
+	"part_lifecycle_status":"CASE WHEN part_status_code IN ('ACTIVE', 'NEW') THEN 'Active' WHEN part_status_code IN ('PHASE_OUT') THEN 'Active' WHEN part_status_code IN ('INACTIVE', 'BLOCKED', 'QUALITY_HOLD') THEN 'Inactive' WHEN part_status_code IN ('OBSOLETE') THEN 'Obsolete' ELSE 'Unknown' END",
+	"effective_from":"CAST(created_date AS date)",
+	"effective_to":"CAST(last_used_date as date)"
+  }
+}

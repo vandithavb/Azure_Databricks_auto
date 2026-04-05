@@ -1,0 +1,20 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_currency_rates",
+  "target_table": "auto_db.jkauto_silver.silver_currency",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "append",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "currency_ek"
+  ],
+  "column_mapping": {
+    "currency_code": "currency_code",
+    "currency_name": "currency_name",
+    "exchange_rate_usd": "cast (exchange_rate_to_usd as DECIMAL(5, 4))",
+    "effective_date": "cast(effective_date as date)"
+  }
+}

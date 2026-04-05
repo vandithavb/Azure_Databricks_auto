@@ -1,0 +1,30 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_dealer_inventory",
+  "target_table": "auto_db.jkauto_silver.silver_inventory_snapshot",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "overwrite",
+  "merge_keys": [
+    ""
+  ],
+  "identity_columns": [
+    "inventory_snapshot_ek"
+  ],
+  "column_mapping": {
+	  
+	  "inventory_date":"cast(snapshot_date as date)",
+		"dealer_id":"location_id",
+		"vin":"vin",
+		"available_units":"cast(quantity_on_hand as int)",
+		"inventory_value":"cast(inventory_value as int)",
+		"inventory_type":"inventory_type"
+   
+  }
+}
+
+
+
+
+
+

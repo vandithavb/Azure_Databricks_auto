@@ -1,0 +1,27 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_supplier_delivery_schedule",
+  "target_table": "auto_db.jkauto_silver.silver_part_delivery",
+
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column":"",
+  "load_type": "overwrite",
+
+  "merge_keys": ["delivery_id"],
+  "identity_columns": ["part_delivery_ek"],
+
+  "column_mapping": {
+    "delivery_id":"delivery_id",
+	"supplier_id":"supplier_id",
+	"part_number":"part_number",
+	"plant_id":"plant_id",
+	"planned_date":"cast(planned_delivery_date as date)",
+	"actual_date":"cast(actual_delivery_date as date)",
+	"ordered_quantity":"cast(ordered_quantity as int)",
+	"delivered_quantity":"cast(delivered_quantity as int)",
+	"delivery_status":"delivery_status",
+	"delivery_delay_days":"cast(DATEDIFF( CAST(actual_delivery_date AS DATE), CAST(planned_delivery_date AS DATE)) as int)",
+	"delivery_fill_rate":"cast(ROUND( CASE WHEN cast(ordered_quantity as int) = 0 OR cast(ordered_quantity as int) IS NULL THEN 0 ELSE (cast(delivered_quantity as int) / cast(ordered_quantity as int)) * 100 END, 2) as int)",
+	"is_delayed": "CASE WHEN actual_delivery_date IS NULL OR planned_delivery_date IS NULL THEN false WHEN CAST(actual_delivery_date AS DATE) > CAST(planned_delivery_date AS DATE) THEN true ELSE false END"
+	}
+}

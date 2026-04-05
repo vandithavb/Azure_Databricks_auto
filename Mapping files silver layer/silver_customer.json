@@ -1,0 +1,33 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_customer_master",
+  "target_table": "auto_db.jkauto_silver.silver_customer",
+  "read_mode": "full",
+  "watermark_column": "",
+  "last_processed_column": "",
+  "load_type": "scd1",
+  "merge_keys": [
+    "customer_id"
+  ],
+  "identity_columns": [
+    "customer_ek"
+  ],
+  "column_mapping": {
+    "customer_id":"customer_id",
+	"customer_type":"customer_type",
+	"full_name":"concat(first_name,last_name)",
+	"email":"email",
+	"phone":"phone",
+	"gender":"gender",
+	"age": "FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12)",
+	"age_group": 
+			"CASE WHEN FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12) < 18 THEN 'Minor' WHEN FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12) BETWEEN 18 AND 25 THEN 'Young Adult' WHEN FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12) BETWEEN 26 AND 35 THEN 'Adult'  WHEN FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12) BETWEEN 36 AND 45 THEN 'Mid Age' WHEN FLOOR(months_between(current_date(), CAST(date_of_birth AS date)) / 12) BETWEEN 46 AND 60 THEN 'Senior' ELSE 'Elder' END",
+	"income_band": 
+			"CASE WHEN income < 25000 THEN 'Low' WHEN income BETWEEN 25000 AND 50000 THEN 'Lower-Middle' WHEN income BETWEEN 50001 AND 100000 THEN 'Middle' ELSE 'High' END",	
+	"loyalty_segment":"loyalty_segment",
+	"country":"country",
+	"city":"city"
+
+  }
+}
+
+

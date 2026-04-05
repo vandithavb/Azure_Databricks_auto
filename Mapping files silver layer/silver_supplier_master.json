@@ -1,0 +1,32 @@
+{
+  "source_table": "auto_db.jkauto_bronze.bronze_supplier_master",
+  "target_table": "auto_db.jkauto_silver.silver_supplier",
+
+  "read_mode": "full",
+  "watermark_column": "updated_ts",
+  "last_processed_column":"update_datetime",
+  "load_type": "scd2",
+
+  "merge_keys": ["supplier_id"],
+  "identity_columns": ["supplier_ek"],
+
+  "column_mapping": {
+    "supplier_id": "supplier_id",
+    "supplier_name": "supplier_name",
+    "supplier_type": "supplier_type",
+    "supplier_tier": "supplier_tier",
+    "country": "country",
+    "state": "state",
+    "city": "city",
+    "risk_rating": "risk_rating",
+    "is_active": "supplier_status",
+
+    "effective_from": "CAST(created_date AS date)",
+    "effective_to": "CAST(CASE WHEN supplier_status = 'Inactive' THEN created_date ELSE NULL END AS date)",
+
+    "supplier_contract_start_date": "CAST(created_date AS date)",
+    "supplier_contract_end_date": "CAST(CASE WHEN supplier_status = 'Inactive' THEN created_date ELSE NULL END AS date)",
+
+    "preferred_supplier_flag": "CAST(CASE WHEN supplier_tier = 'Tier 1' AND risk_rating IN ('Low','Medium') AND supplier_status = 'Active' THEN 1 ELSE 0 END AS boolean)"
+  }
+}
