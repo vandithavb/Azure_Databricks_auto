@@ -13,7 +13,7 @@ Data platform for automotive manufacturing analytics built on Azure Databricks u
 
 This project implements a data lakehouse for automotive manufacturing operations, processing data from vehicle production, supplier logistics, dealer sales, service orders, warranty claims, and customer records.
 
-The pipeline follows Medallion Architecture (Bronze → Silver → Gold) and includes configuration-driven transformations, multiple load patterns, and automated data quality validation.
+The pipeline follows Medallion Architecture (Bronze → Silver → Gold) and includes metadata-driven ingestion, transformations, multiple load patterns, and automated data quality validation.
 
 **Tech Stack:**
 - Azure Databricks, PySpark 3.4+
